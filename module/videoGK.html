@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>G25长深高速德清至富阳段扩容杭州段及G25富阳至G60诸暨高速联络线工程沥青路面施工质量管控系统</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../../css/hzBigScreen.css">
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+		<script type="text/javascript" src="../../js/plugin/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="../../js/private/layout.js"></script>
+		<script type="text/javascript" src="../../js/plugin/swiper.min.js"></script>
+		<script type="text/javascript" src="../../js/private/utils.js"></script>
+		<script type="text/javascript" src="../../js/plugin/echarts.min.js"></script>
+		<script type="text/javascript" src="../../js/plugin/ezuikit.js"></script>
+		<style type="text/css">
+			.video-warp-content-header {
+				background:#2378ff;
+				color:#fff;
+				font-size:16px;
+				font-weight:bold;
+			}
+			.video-warp-content-header i {
+				padding-left:20px;
+			}
+			.video-warp-content-video {
+				background:#333;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="iframe-page-warp w100 h100 relative syManage-module-page videoManage-module-page">
+			<div class="iframe-page-warp-content absolute">
+				<div class="staticWarp-to-listWarp w100 h100 absolute">
+					<div class="swiper-container w100 h100 static-list-warp-swiper">
+						<div class="swiper-wrapper w100 h100">
+							<div class="swiper-slide w100 h100">
+								<!--  -->
+								<div class="card-warp-small absolute w100">
+									<!-- pc -->
+									<div class="pc-video-warp absolute h100">
+										<div class="card-header absolute text-l">视频监控</div>
+										<div class="video-warp-content absolute">
+											<div class="video-warp-content-header w100 absolute"><i></i></div>
+											<div class="video-warp-content-video absolute w100">
+												<div class="swiper-container w100 h100"id="video-swiper">
+													<div class="swiper-wrapper w100 h100"id="swiper-wrapper">
+														
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- phone -->
+									<div class="phone-video-warp absolute h100">
+										<div class="card-header absolute text-l">监控列表</div>
+										<div class="video-manage-map-tabs-content-warp absolute">
+											<div class="video-manage-map-tabs-content-warp-content">
+												<div class="videoList">
+													<!-- <div class='video-tabs-list one-level video-tabs-listAct'>
+														<span>S209线 料场</span>
+													</div> -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	setTimeout(function() {
+		
+		$.ajax({
+			type: 'POST',
+			url: commonUrl+"videojk/list",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(res) {
+				if(res.code==0){
+					res.data.forEach(function(item,index){
+						item.videoJkList.forEach(function(listItem,listIndex){
+							$(".videoList").append(`
+								<div class='video-tabs-list one-level' data-id="HmyPlayer_${listItem.id}">														
+									<span>${listItem.monitoringSites}</span>													
+								</div>
+							`);
+							$("#swiper-wrapper").append(`
+								<div class="swiper-slide w100 h100 swiper-no-swiping">
+									<video id='HmyPlayer_${listItem.id}' style='width:100%;height:100%;background-color: black; border:none;' poster=''  autoplay='autoplay' playsInline webkit-playsinline>
+										<source src='${listItem.rtmp}' type='' />
+										<source src=''${listItem.hls}' type='application/x-mpegURL' />
+									</video>
+								</div>
+							`);
+							if(index==0 && listIndex==0){
+								new EZUIPlayer('HmyPlayer_'+listItem.id);
+								$(".video-warp-content-header i").text(listItem.monitoringSites);
+							}
+						});
+					});
+					$(".video-tabs-list").eq(0).addClass("video-tabs-listAct");
+					layout();
+					
+					var mySwiper = new Swiper("#video-swiper",{
+						loop:false,
+						initialSlide:0,
+						direction:"vertical",
+						//自动轮播
+						autoplay:false,
+						// autoplay: {
+						// 	delay:3000000000,
+						// 	stopOnLastSlide: false,
+						// 	disableOnInteraction: true,
+						// },
+						on:{
+						 //    transitionStart: function(){
+							// 	new EZUIPlayer($(".video-tabs-list").eq(this.activeIndex).data("id"));
+							// 	$(".video-tabs-list").eq(this.activeIndex).addClass("video-tabs-listAct").siblings().removeClass("video-tabs-listAct");
+							// 	$(".video-warp-content-header i").text($(".video-tabs-list").eq(this.activeIndex).text());
+							// }
+						  },
+					});
+					
+					//手动切换模块
+					$(document).on("click",".video-tabs-list",function(){
+						$(this).addClass("video-tabs-listAct").siblings().removeClass("video-tabs-listAct");
+						$(".video-warp-content-header i").text($(this).text());
+						mySwiper.slideTo($(this).index(),300,false);
+						new EZUIPlayer($(this).data("id"));
+					});
+				}
+			},
+			error: function(error) {
+				
+			},
+			complete: function(){
+				
+			}
+		});
+	},200);
+</script>

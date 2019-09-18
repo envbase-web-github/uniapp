@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>G25长深高速德清至富阳段扩容杭州段及G25富阳至G60诸暨高速联络线工程沥青路面施工质量管控系统</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../../css/hzBigScreen.css">
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+		<script type="text/javascript" src="../../js/plugin/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="../../js/private/layout.js"></script>
+		<script type="text/javascript" src="../../js/plugin/swiper.min.js"></script>
+		<script type="text/javascript" src="../../js/private/utils.js"></script>
+		<script type="text/javascript" src="../../js/plugin/echarts.min.js"></script>
+		<script type="text/javascript" src="../../js/plugin/ezuikit.js"></script>
+	</head>
+	<body>
+		<div class="iframe-page-warp w100 h100 relative bhManage-module-page tpManage-module-page syManage-module-page">
+			<div class="iframe-page-warp-content absolute">
+				<div class="staticWarp-to-listWarp w100 h100 absolute">
+					<div class="swiper-container w100 h100 static-list-warp-swiper">
+						<div class="swiper-wrapper w100 h100">
+							<div class="swiper-slide w100 h100 swiper-no-swiping">
+								<!--  -->
+								<div class="card-warp-small absolute w100">
+									
+									<div class="card-list relative card-list-w100" style="width:100%!important;bottom:0;">
+										<div class="card-header absolute text-l">试验次数统计</div>
+										<div class="card-list-w100-content absolute">
+											<style type="text/css">
+												#syNum-char {width:100%!important;}
+											</style>
+											<div class="card-list-w100-content-warp"id="syNum-char">
+												
+											</div>
+										</div>
+									</div>
+										
+									<div class="card-list relative card-list-w100" style="width:100%!important;bottom:0;">
+										<div class="card-header absolute text-l">试验合格率</div>
+										<div class="card-list-w100-content absolute">
+											<div class="syhgl-list-char-warp-header">
+												<ul>
+													<li><i style="background:#187cff;"></i>合格试验</li>
+													<li><i style="background:#ffec4a;"></i>不合格试验</li>
+												</ul>
+											</div>
+											<div class="card-list-w100-content-warp syhgl-list-char-warp absolute">
+												<div class="syhgl-list-char-warp-list">
+													<div class="syhgl-list-char" id="pie-char-01" data-name="延度"></div>
+												</div>
+												<div class="syhgl-list-char-warp-list">
+													<div class="syhgl-list-char" id="pie-char-02" data-name="软化点"></div>
+												</div>
+												<div class="syhgl-list-char-warp-list">
+													<div class="syhgl-list-char" id="pie-char-03" data-name="针入度"></div>
+												</div>
+												<div class="syhgl-list-char-warp-list">
+													<div class="syhgl-list-char" id="pie-char-04" data-name="光谱仪"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	setTimeout(function(){
+		sybChar();
+		$(".syhgl-list-char-warp-list .syhgl-list-char").each(function(index,item){
+			DrawChar($(item).attr("id"),$(item).data("name"))
+		});
+	},100);
+	
+	//试验次数统计
+	function sybChar(){
+		var charWarp = document.getElementById("syNum-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+				grid: {
+					left: '2%',
+					right: '2%',
+					bottom: '4%',
+					top:"23%",
+					containLabel: true
+				},
+				tooltip: {
+				  show: true,
+				  trigger: 'axis',
+				  axisPointer: {
+					  type: 'shadow'
+				  }
+				},
+				legend:{
+					right: 'center',
+					top: '3%',
+					textStyle: {
+						color: '#fff',
+					},
+					textStyle:{
+						color:"#a7c8fc"
+					},
+					itemGap:60,
+					icon: 'rect',
+					itemWidth:15,
+					itemHeight:15,
+					data: ['试验总次数','合格试验','不合格试验']
+				},
+				xAxis:xAxisConfig(['延度','软化点','针入度','光谱仪'],"",0),
+				yAxis:yAxisConfig("单位(次)",100,0),
+				series: [
+					{
+						name:'试验总次数',
+						type:'bar',
+						barWidth:"8%",
+						itemStyle: {
+							color:"#0cf3ff"
+						},
+						lineStyle:{
+							width:2
+						},
+						label: {
+							normal: {
+								show: true,
+								color:"#fff",
+								position: 'top'
+							}
+						},
+						data:[60,60,60,60]
+					},
+					{
+						name:'合格试验',
+						type:'bar',
+						barWidth:"8%",
+						itemStyle: {
+							color:"#29f4b5"
+						},
+						lineStyle:{
+							width:2
+						},
+						label: {
+							normal: {
+								show: true,
+								color:"#fff",
+								position: 'top'
+							}
+						},
+						data:[60,28,60,54]
+					},
+					{
+						name:'不合格试验',
+						type:'bar',
+						barWidth:"8%",
+						itemStyle: {
+							color:"#e746fc"
+						},
+						lineStyle:{
+							width:2
+						},
+						label: {
+							normal: {
+								show: true,
+								color:"#fff",
+								position: 'top'
+							}
+						},
+						data:[0,2,0,6]
+					}
+				]
+			};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	//绘制饼图Fun
+	function DrawChar(id,title){
+		var charWarp = document.getElementById(id);
+		var initChar = echarts.init(charWarp);
+		var options= {
+			color:["#187cff","#ffec4a"],
+			title:[
+				{
+					text:title,
+					x:'24%',
+					y:"9%",
+					textStyle:{
+						color:"#fff",
+						fontWeight:"bold",
+						fontSize:18
+					}
+				},
+				{
+					text:"合格率",
+					x:'55%',
+					y:"40%",
+					textStyle:{
+						color:"#38fbce",
+						fontWeight:400,
+						fontSize:26
+					}
+				},
+				{
+					text:"45.98%",
+					x:'55%',
+					y:"60%",
+					textStyle:{
+						color:"#38fbce",
+						fontWeight:400,
+						fontSize:26
+					}
+				}
+			],
+			tooltip : {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			series : [
+				{
+					name:title,
+					type: 'pie',
+					radius : '64%',
+					center: ['30%', '60%'],
+					data:[
+						{value:80, name:'合格试验'},
+						{value:20, name:'不合格试验'}
+					],
+					label: {
+						normal: {
+							show: false
+						}
+					},
+					labelLine: {
+						normal: {
+							show: true,//true,//set true if use "position: 'outside',"
+						}
+					},
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						}
+					}
+				}
+			]
+		};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	}
+	
+	
+</script>

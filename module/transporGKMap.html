@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>G25长深高速德清至富阳段扩容杭州段及G25富阳至G60诸暨高速联络线工程沥青路面施工质量管控系统</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../../css/hzBigScreen.css">
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+		<script type="text/javascript" src="../../js/plugin/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="../../js/private/layout.js"></script>
+		<script type="text/javascript" src="../../js/plugin/swiper.min.js"></script>
+		<script type="text/javascript" src="../../js/private/utils.js"></script>
+		<script type="text/javascript" src="../../js/plugin/echarts.min.js"></script>
+		<script type="text/javascript" src="../../js/plugin/ezuikit.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=EMU0q1jOBYqmg8Tvl2RYws7hNw6PHyyR"></script>
+		<script type="text/javascript" src="../../js/plugin/mapJson.js"></script>
+		<script type="text/javascript" src="../../js/plugin/GeoUtils.js"></script>
+	</head>
+	<body>
+		<!-- 查看合成级配弹窗 -->
+		<div id="view-hcjp-pop-warp"class="relative">
+			<div class="view-hcjp-pop-warp-content relative">
+				<div id="car-line-map" style="width:100%;height:100%;"></div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	
+	setTimeout(function(){
+		//初始化百度地图
+		var map = new BMap.Map("car-line-map");
+		map.centerAndZoom(new BMap.Point(120.365837,29.511015),14);
+		map.enableScrollWheelZoom();
+	},100)
+</script>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>G25长深高速德清至富阳段扩容杭州段及G25富阳至G60诸暨高速联络线工程沥青路面施工质量管控系统</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../../css/hzBigScreen.css">
+		<!-- <link rel="stylesheet" href="../../css/bigScreen.css"> -->
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+		<script type="text/javascript" src="../../js/plugin/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="../../js/private/layout.js"></script>
+		<script type="text/javascript" src="../../js/plugin/swiper.min.js"></script>
+		<script type="text/javascript" src="../../js/private/utils.js"></script>
+		<script type="text/javascript" src="../../js/plugin/echarts.min.js"></script>
+		<script type="text/javascript" src="../../js/plugin/ezuikit.js"></script>
+	</head>
+	<body>
+		<div class="iframe-page-warp w100 h100 relative bhManage-module-page tpManage-module-page">
+			<div class="iframe-page-warp-content absolute">
+				<div class="swiper-slide page-swiper-slide w100 h100 relative env-protection-warp">
+					 <div class="env-protection-warp-content absolute">
+						 <p class="absolute title yc_title">当前展示为监测站点实时数据（更新于：<i id="now-time">0000-00-00 00:00:00</i>）</p>
+						 <ul>
+							 <li>
+								 <p class="li-header li-header absolute"></p>
+								 <div class="div1 jcd_item">
+									<p class="div_p1">PM2.5</P>
+									<P class="div_p2 div_p2_red">监测点</P>
+									<P class="div_p3 div_p3_red">96.5ug/m3</P>
+								 </div>
+							 </li>
+							 <li>
+								 <p class="li-header li-header absolute"></p>
+								 <div class="div1 jcd_item">
+									<p class="div_p1">PM2.10</P>
+									<P class="div_p2 div_p2_green">监测点</P>
+									<P class="div_p3 div_p3_green">96.5ug/m3</P>
+								 </div>
+							 </li>
+							 <li>
+								 <p class="li-header li-header absolute"></p>
+								 <div class="div1 jcd_item">
+									<p class="div_p1">PM2.5</P>
+									<P class="div_p2 div_p2_green">监测点</P>
+									<P class="div_p3 div_p3_green">96.5ug/m3</P>
+								 </div>
+							 </li>
+							 <li>
+								 <p class="li-header li-header absolute"></p>
+								 <div class="div1 jcd_item">
+									<p class="div_p1">PM2.5</P>
+									<P class="div_p2 div_p2_gray">监测点</P>
+									<P class="div_p3 div_p3_gray">96.5ug/m3</P>
+								 </div>
+							 </li>
+							 <li>
+								 <p class="li-header li-header absolute"></p>
+								 <div class="div1 jcd_item">
+									<p class="div_p1">PM2.5</P>
+									<P class="div_p2 div_p2_green">监测点</P>
+									<P class="div_p3 div_p3_green">96.5ug/m3</P>
+								 </div>
+							 </li>
+							 <li>
+								 <p class="li-header li-header absolute"></p>
+								 <div class="div1 jcd_item">
+									<p class="div_p1">PM2.5</P>
+									<P class="div_p2 div_p2_green">监测点</P>
+									<P class="div_p3 div_p3_green">96.5ug/m3</P>
+								 </div>
+							 </li>
+							 
+						 </ul>
+					 </div>
+					 <!--  -->
+					 <div class="card-warp-small-yc card-warp-small absolute w100">
+						<div class="card-list absolute">
+							<div class="card-header absolute text-l">环境治理统计</div>
+							<div id="hjzl-bar" class="w100 h100 absolute echarts-warp"></div>
+						</div>
+						<div class="card-list absolute">
+							<div class="card-header absolute text-r">环境治理率</div>
+							<div id="hjzl-line" class="w100 h100 absolute echarts-warp"></div>
+						</div>
+					</div>
+			    </div>
+			</div>
+		</div>
+    </body>
+</html>
+<script type="text/javascript">
+	setTimeout(function(){
+		hjtjhar();
+		hjzllChar();
+		$(".syhgl-list-char-warp-list .syhgl-list-char").each(function(index,item){
+			DrawChar($(item).attr("id"),$(item).data("name"))
+		});
+	},100);
+	
+	//环境治理统计-char
+	function hjtjhar(){
+		var charWarp = document.getElementById("hjzl-bar");
+		var initChar = echarts.init(charWarp);
+		var options = {
+				grid: {
+					left: '5%',
+					right: '10%',
+					bottom: '4%',
+					top:"28%",
+					containLabel: true
+				},
+				color:'#ffe04a',
+				tooltip: {
+				  show: true,
+				  trigger: 'axis'
+				},
+				legend:{
+					right: 'center',
+					top: '15%',
+					itemGap:10,
+					icon: 'rect',
+					itemWidth:15,
+					itemHeight:15,
+					data: ['水胶比']
+				},
+				xAxis:xAxisConfig(['201901','201902','201903','201904','201905'],"",0),
+				yAxis:yAxisConfig("单位(次)",1500,0),
+				series: [
+					{
+						name:'',
+						type:'bar',
+						barWidth:25,
+						symbol:"circle",
+						showAllSymbol:true,
+						symbolSize:8,
+						itemStyle: {
+							normal: {
+				                label : {
+				                	show: true,
+				                	position:"top"
+				                }
+				            },
+						},
+						data:[100,750, 450, 1050,350]
+					}
+				],
+			};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	//环境治理率-char
+	function hjzllChar(){
+		var charWarp = document.getElementById("hjzl-line");
+		var initChar = echarts.init(charWarp);
+		var options = {
+				grid: {
+					left: '5%',
+					right: '10%',
+					bottom: '4%',
+					top:"30%",
+					containLabel: true
+				},
+				color:"#3feea1",
+				tooltip: {
+				  show: true,
+				  trigger: 'axis'
+				},
+				legend:{
+					right: 'center',
+					top: '15%',
+					textStyle: {
+						color: '#fff',
+					},
+					textStyle:{
+						color:"#a7c8fc"
+					},
+					itemGap:10,
+					icon: 'rect',
+					itemWidth:15,
+					itemHeight:15,
+					data: ['时间']
+				},
+				xAxis:xAxisConfig(['201901','201902','201903','201904','201905'],"",0),
+				yAxis:yAxisConfig("单位(%)",2,0),
+				series: [
+					{
+						name:'摊铺速度',
+						type:'line',
+						symbol:"circle",
+						showAllSymbol:true,
+						symbolSize:8,
+						itemStyle: {
+							borderColor: "#fff",
+							borderWidth:2,
+							color:"#3feea1",
+							normal: {
+				                label : {
+				                	show: true,
+				                	position:"top"
+				                }
+				            },
+						},
+						lineStyle:{
+							width:2
+						},
+						data:[0.4,0, 0.6, 1,0.6]
+					}
+				],
+				// visualMap:{
+				// 	show:false,
+				// 	pieces:[
+				// 		//超过上限
+				// 		{gt:30,color:"#ef503b"},
+				// 		//低于下限
+				// 		{lt:0,color:"#ef503b"},
+				// 		//正常
+				// 		{gt:0, lt:30,color:"#68f265"}, 
+				// 	]
+				// }
+			};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+</script>

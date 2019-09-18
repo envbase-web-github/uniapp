@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>福清S209绕行线段水泥混凝土路面改造工程智慧工地建设管理平台</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../../css/hzBigScreen.css">
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+		<script type="text/javascript" src="../../js/plugin/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" href="http://47.103.77.233:8090/static/commonfiles/layui/css/layui.css">
+		<script type="text/javascript" src="http://47.103.77.233:8090/static/commonfiles/layui/layui.all.js"></script>
+		<script type="text/javascript" src="../../js/private/layout.js"></script>
+		<script type="text/javascript" src="../../js/plugin/swiper.min.js"></script>
+		<script type="text/javascript" src="../../js/private/utils.js"></script>
+		<script type="text/javascript" src="../../js/plugin/echarts.min.js"></script>
+	</head>
+	<body>
+		<div class="iframe-page-warp w100 h100 relative bhManage-module-page lqManage-module-page">
+			<div class="iframe-page-warp-content-lqgk absolute">
+				<!-- 切换列表 -->
+				<div class="check-list-show-btn_lq check-list-show-btn absolute">
+				   <div class="on">统计</div>
+				   <div>列表</div>
+				</div>
+				<div class="staticWarp-to-listWarp w100 h100 absolute">
+					<div class="swiper-container w100 h100 static-list-warp-swiper">
+						<div class="swiper-wrapper w100 h100">
+							<div class="swiper-slide w100 h100 swiper-no-swiping">
+								<!-- 顶部swiper -->
+								<div class="module-swiper-slide-top-warp module-swiper-slide-top-warp-lqsc absolute">
+								   <div class="swiper-container w100 h100 module-swiper-slide-top-swiper">
+									   <div class="swiper-wrapper w100 h100">
+										  <div class="swiper-slide w100 h100 swiper-no-swiping">
+											  <ul id="today" style="margin: inherit;">
+												  <li class="title-li today"></li>
+												  <li><p>当天产量</p><p>0吨</p></li>
+												  <li><p>当天盘数</p><p>0</p></li>
+												  <li class="color-1"><p>合格盘数</p><p>0</p></li>
+												  <li class="color-2"><p>高级预警</p><p>0盘</p></li>
+												  <li class="color-3"><p>中级预警</p><p>0盘</p></li>
+												  <li class="color-4"><p>初级预警</p><p>0盘</p></li>
+												  <li class="color-5"><p>处置率</p><p>--%</p></li>
+											  </ul>
+										  </div>
+										  <div class="swiper-slide w100 h100 swiper-no-swiping">
+											  <ul id="total-ul">
+												  <li class="title-li"></li>
+												  <li><p>累计产量</p><p class="p">01吨</p></li>
+												  <li><p>累计生产盘数</p><p>0</p></li>
+												  <li class="color-1"><p>合格盘数</p><p>0</p></li>
+												  <li class="color-2"><p>高级预警</p><p>0盘</p></li>
+												  <li class="color-3"><p>中级预警</p><p>0盘</p></li>
+												  <li class="color-4"><p>初级预警</p><p>0盘</p></li>
+												  <li class="color-5"><p>处置率</p><p>--%</p></li>
+											   </ul>
+										  </div>
+									   </div>
+								   </div>
+								</div>
+								<!--  -->
+								<div class="card-warp-small-lqsc-bhgk card-warp-small absolute w100">
+									<div class="card-list card-list-bhgk absolute">
+										<div class="card-header absolute text-l">石油比走势图</div>
+										<div class="echarts-time absolute">2019.08.13</div>
+										<div id="syb-char" class="w100 h100 absolute echarts-warp"></div>
+									</div>
+									<div class="card-list card-list-bhgk absolute">
+										<div class="card-header absolute text-r">关键筛孔通过率波动图</div>
+										<!-- 下拉框 -->
+										<div class="bhManage-select-warp absolute">
+										   <p class="l">筛孔型号：</p>
+											<div class="lui-select">
+												 <div class="lui-select-header">自定义下拉框</div>
+												 <div class="lui-select-list-warp">
+													<div class="lui-select-list">自定义下拉框自定义下拉框自定义下拉框自定义下拉框</div>
+													<div class="lui-select-list">自定义下拉框自定义下拉框自定义下拉框自定义下拉框</div>
+													<div class="lui-select-list">自定义下拉框自定义下拉框自定义下拉框自定义下拉框</div>
+													<div class="lui-select-list">自定义下拉框</div>
+													<div class="lui-select-list">自定义下拉框</div>
+												 </div>
+											</div>
+										</div>
+										<!-- 日期 -->
+										<div class="echarts-time absolute" id="date-time-2">2019.08.13</div>
+										<!-- 按钮 -->
+										<div class="view-hcjp-btn absolute" onclick="viewPop()">查看合成级配</div>
+										<div id="gjsk-char" class="w100 h100 absolute echarts-warp"></div>
+									</div>
+									<div class="card-list card-list-bhgk absolute">
+										<div class="card-header absolute text-l">加热温度</div>
+										<div class="echarts-time absolute">2019.08.13</div>
+										<div id="jrwd-char" class="w100 h100 absolute echarts-warp"></div>
+									</div>
+									<div class="card-list card-list-bhgk absolute">
+										<div class="card-header absolute text-r">拌合时间走势</div>
+										<div class="echarts-time absolute">2019.08.13</div>
+										<div id="hzsj-char" class="w100 h100 absolute echarts-warp"></div>
+									</div>
+								</div>
+							</div>
+							<div class="swiper-slide w100 h100 swiper-no-swiping relative">
+								<div class="page-warp-swiper-warp absolute big-list-card-warp">
+									<div class="card-header absolute text-l">这个标题写啥呢？</div>
+									<div class="big-list-card-warp-content absolute">
+										<div class="big-list-card-warp-content-warp">
+											<table class="border-table" width="98%">
+												<thead>
+													<tr>
+														<th>施工桩号</th>
+														<th>标准密度</th>
+														<th>施工部位</th>
+														<th>长度</th>
+														<th>宽度</th>
+														<th>实际厚度</th>
+														<th>预估厚度</th>
+														<th>采集时间</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>KT0-12542</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td>
+													</tr>
+													<tr>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+													</tr>
+													<tr>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+													</tr>
+													<tr>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+													</tr>
+													<tr>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 查看合成级配弹窗 -->
+		<div id="view-hcjp-pop-warp"class="relative">
+			<div class="view-hcjp-pop-warp-content relative">
+				<div class="view-hcjp-pop-warp-closeBtn absolute"onclick="layer.closeAll()"></div>
+			</div>
+		</div>
+		
+	</body>
+</html>
+<script type="text/javascript">
+	setTimeout(function(){
+		swiperFun();
+		checkSwiper();
+		sybChar();
+		gjskChar();
+		jrwdChar();
+		hzsjChar();
+	},100);
+	
+	//查看合成级配-弹窗
+	function viewPop(){
+		parent.layer.open({
+			type: 1,
+			anim:4,
+			title: false,
+			closeBtn: 0,
+			btnAlign:'c',
+			shadeClose: false,
+			area: ['1200px','600px'],
+			skin: 'view-hcjp-pop-warp',
+			content: $("#view-hcjp-pop-warp").html(),
+			btn1: function(index, layero){
+				//按钮【确定】的回调
+				
+			},
+			btn2: function(index, layero){
+				//按钮【取消】的回调
+				
+			},
+			success:function(){
+				//弹窗成功回调
+				
+			}
+		});
+	}
+	//顶部轮播-swiper
+	function swiperFun(){
+		var mySwiper = new Swiper(".module-swiper-slide-top-swiper",{
+			//循环
+			loop:true,
+			initialSlide:0,
+			//切换效果
+			direction:"vertical",
+			effect:'left',
+			//自动轮播
+			autoplay: {
+				delay:sonSwiperTime,
+				stopOnLastSlide: false,
+				disableOnInteraction: true,
+			}
+		});
+	};
+	
+	//统计列表切换
+	function checkSwiper(){
+		var mySwiper = new Swiper(".static-list-warp-swiper",{
+			//循环
+			loop:false,
+			direction:"vertical",
+			//切换效果
+			effect:'left',
+			initialSlide:0,
+			//自动轮播
+			autoplay:false
+		});
+		$(document).on("click",".check-list-show-btn div",function(event){
+			$(this).addClass("on").siblings().removeClass("on");
+			var index = $(this).index();
+			mySwiper.slideTo(index,300,false);
+		});
+	}
+
+	//石油比-char
+	function sybChar(){
+		var charWarp = document.getElementById("syb-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+				grid: {
+					left: '5%',
+					right: '10%',
+					bottom: '4%',
+					top:"28%",
+					containLabel: true
+				},
+				tooltip: {
+				  show: true,
+				  trigger: 'axis'
+				},
+				legend:{
+					right: 'center',
+					top: '15%',
+					textStyle: {
+						color: '#fff',
+					},
+					textStyle:{
+						color:"#a7c8fc"
+					},
+					itemGap:10,
+					icon: 'rect',
+					itemWidth:15,
+					itemHeight:15,
+					data: ['石油比']
+				},
+				// xAxis:xAxisConfig(['08:44:38','08:44:39','08:44:40','08:44:41','08:44:42'],"",0),
+				xAxis:xAxisConfig(['09:17','09:18','09:19','09:20','09:21'],"",0),
+				yAxis:yAxisConfig("单位(%)"),
+				series: [
+					{
+						name:'石油比',
+						type:'line',
+						symbol:"circle",
+						showAllSymbol:true,
+						symbolSize:8,
+						itemStyle: {
+							borderColor: "#fff",
+							borderWidth:2,
+							color:"#68f265"
+						},
+						lineStyle:{
+							width:2
+						},
+						markLine : {
+							silent: true,
+							symbol:["none","arrow"],
+							label:{
+								normal:{
+									position:'end',
+									formatter:function(params){
+										return params.name+params.value
+									}
+								}
+							},
+							data: [
+								{
+									yAxis: 4.7,
+									name:"最大值",
+									lineStyle:{
+										normal:{
+											color:"#ef503b"
+										}
+									}
+								}, {
+									yAxis:1.8,
+									name:"最小值",
+									lineStyle:{
+										normal:{
+											color:"#ffef90"
+										}
+									}
+								}
+							]
+						},
+						// data:[100,70, 100, 200,60]
+						data:[3.5,3.8, 4, 4.1,4]
+					}
+				],
+				visualMap:{
+					show:false,
+					pieces:[
+						//超过上限
+						{gt:4.7,color:"#ef503b"},
+						//低于下限
+						{lt:1.8,color:"#ef503b"},
+						//正常
+						{gt:0, lt:4.7,color:"#68f265"}, 
+					]
+				}
+			};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	//关键筛孔通过率波动图
+	function gjskChar(){
+		var charWarp = document.getElementById("gjsk-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+				grid: {
+					left: '5%',
+					right: '10%',
+					bottom: '4%',
+					top:"30%",
+					containLabel: true
+				},
+				tooltip: {
+				  show: true,
+				  trigger: 'axis'
+				},
+				// xAxis:xAxisConfig(['08:44:38','08:44:39','08:44:40','08:44:41','08:44:42'],"",0),
+				xAxis:xAxisConfig(['09:17','09:18','09:19','09:20','09:21'],"",0),
+				yAxis:yAxisConfig("单位(%)",25,0),
+				series: [
+					{
+						name:'石油比',
+						type:'line',
+						symbol:"circle",
+						showAllSymbol:true,
+						symbolSize:8,
+						itemStyle: {
+							borderColor: "#fff",
+							borderWidth:2,
+							color:"#68f265"
+						},
+						lineStyle:{
+							width:2
+						},
+						markLine : {
+							silent: true,
+							symbol:["none","arrow"],
+							label:{
+								normal:{
+									position:'end',
+									formatter:function(params){
+										return params.name+params.value
+									}
+								}
+							},
+							data: [
+								{
+									yAxis: 19.7,
+									name:"最大值",
+									lineStyle:{
+										normal:{
+											color:"#ef503b"
+										}
+									}
+								}, {
+									yAxis:4.8,
+									name:"最小值",
+									lineStyle:{
+										normal:{
+											color:"#ffef90"
+										}
+									}
+								}
+							]
+						},
+						// data:[100,70, 100, 200,60]
+						data:[13,12, 16, 12,13]
+					}
+				],
+				visualMap:{
+					show:false,
+					pieces:[
+						//超过上限
+						{gt:19.7,color:"#ef503b"},
+						//低于下限
+						{lt:4.8,color:"#ef503b"},
+						//正常
+						{gt:0, lt:19.7,color:"#68f265"}, 
+					]
+				}
+			};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	//加热温度
+	function jrwdChar(){
+		var charWarp = document.getElementById("jrwd-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+				grid: {
+					left: '5%',
+					right: '10%',
+					bottom: '4%',
+					top:"30%",
+					containLabel: true
+				},
+				tooltip: {
+				  show: true,
+				  trigger: 'axis'
+				},
+				legend:{
+					right: 'center',
+					top: '15%',
+					textStyle: {
+						color: '#fff',
+					},
+					textStyle:{
+						color:"#a7c8fc"
+					},
+					itemGap:10,
+					icon: 'rect',
+					itemWidth:15,
+					itemHeight:15,
+					data: ['沥青加热温度','骨料加热温度','出料温度']
+				},
+				// xAxis:xAxisConfig(['08:44:38','08:44:39','08:44:40','08:44:41','08:44:42'],"",0),
+				xAxis:xAxisConfig(['09:17','09:18','09:19','09:20','09:21'],"",0),
+				yAxis:yAxisConfig("单位( ℃)",100,0),
+				series: [
+					{
+						name:'沥青加热温度',
+						type:'line',
+						symbol:"circle",
+						showAllSymbol:true,
+						symbolSize:8,
+						itemStyle: {
+							borderColor: "#fff",
+							borderWidth:2,
+							color:"#fddf48"
+						},
+						lineStyle:{
+							width:2,
+							//color:"#fddf48"
+						},
+						markLine : {
+							silent: true,
+							symbol:["none","arrow"],
+							label:{
+								normal:{
+									position:'end',
+									formatter:function(params){
+										return params.name+params.value
+									}
+								}
+							},
+							data: [
+								{
+									yAxis: 89.7,
+									name:"最大值",
+									lineStyle:{
+										normal:{
+											color:"#ef503b"
+										}
+									}
+								}, {
+									yAxis:55.8,
+									name:"最小值",
+									lineStyle:{
+										normal:{
+											color:"#ffef90"
+										}
+									}
+								}
+							]
+						},
+						// data:[100,70, 100, 200,60]
+						data:[80,81, 80, 82,80]
+					},
+					{
+						name:'骨料加热温度',
+						type:'line',
+						symbol:"circle",
+						visualMapIndex:1,
+						showAllSymbol:true,
+						symbolSize:8,
+						itemStyle: {
+							borderColor: "#fff",
+							borderWidth:2,
+							color:"#80e679"
+						},
+						lineStyle:{
+							width:2
+						},
+						// data:[90,60,90,160,50]
+						data:[77,78,77,79,75]
+					},
+					{
+						name:'出料温度',
+						type:'line',
+						symbol:"circle",
+						visualMapIndex:1,
+						showAllSymbol:true,
+						symbolSize:8,
+						itemStyle: {
+							borderColor: "#fff",
+							borderWidth:2,
+							color:"#63def8"
+						},
+						lineStyle:{
+							width:2					
+						},
+						// data:[77,78,77,79,75]
+						data:[70,73,72,70,70]
+					}
+				],
+				visualMap:[
+					{
+						show:false,
+						seriesIndex:0,
+						pieces:[
+							//超过上限
+							{gt:89.7,color:"#ef503b"},
+							//低于下限
+							{lt:55.8,color:"#ef503b"},
+							{gt:0, lt:89.7,color:"#fddf48"}, 
+						]
+					},
+					{
+						show:false,
+						seriesIndex:1,
+						pieces:[
+							//超过上限
+							{gt:89.7,color:"#ef503b"},
+							//低于下限
+							{lt:55.8,color:"#ef503b"},
+							{gt:0, lt:89.7,color:"#80e679"}, 
+						]
+					},
+					{
+						show:false,
+						seriesIndex:2,
+						pieces:[
+							//超过上限
+							{gt:89.7,color:"#ef503b"},
+							//低于下限
+							{lt:55.8,color:"#ef503b"},
+							{gt:0, lt:89.7,color:"#63def8"}, 
+						]
+					}
+				],
+			};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	//拌和时间-char
+	function hzsjChar(){
+		var charWarp = document.getElementById("hzsj-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+				grid: {
+					left: '5%',
+					right: '13%',
+					bottom: '4%',
+					top:"28%",
+					containLabel:true
+				},
+				tooltip: {
+				  show: true,
+				  trigger: 'axis'
+				},
+				legend:{
+					right: 'center',
+					top: '15%',
+					textStyle: {
+						color: '#fff',
+					},
+					textStyle:{
+						color:"#a7c8fc"
+					},
+					itemGap:10,
+					icon: 'rect',
+					itemWidth:15,
+					itemHeight:15,
+					data: ['拌合时间']
+				},
+				// xAxis:xAxisConfig(['08:44:38','08:44:39','08:44:40','08:44:41','08:44:42'],"",0),
+				xAxis:xAxisConfig(['09:17','09:18','09:19','09:20','09:21'],"",0),
+				yAxis:yAxisConfig("单位(秒)",25,0),
+				series: [
+					{
+						name:'拌合时间',
+						type:'line',
+						symbol:"circle",
+						showAllSymbol:true,
+						symbolSize:8,
+						itemStyle: {
+							borderColor: "#fff",
+							borderWidth:2,
+							color:"#68f265"
+						},
+						lineStyle:{
+							width:2
+						},
+						markLine : {
+							silent: true,
+							symbol:["none","arrow"],
+							label:{
+								normal:{
+									position:'end',
+									formatter:function(params){
+										return params.name+params.value
+									}
+								}
+							},
+							data: [
+								{
+									yAxis: 18,
+									name:"时间阈值",
+									lineStyle:{
+										normal:{
+											color:"#ef503b"
+										}
+									}
+								}
+							]
+						},
+						// data:[100,70, 100, 200,60]
+						data:[8,10, 12, 11,10]
+					}
+				],
+				visualMap:{
+					show:false,
+					pieces:[
+						//超过上限
+						{gt:25,color:"#ef503b"},
+						//正常
+						{gt:0, lt:160,color:"#68f265"}, 
+					]
+				}
+			};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+</script>

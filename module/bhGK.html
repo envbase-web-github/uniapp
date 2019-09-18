@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>福清S209绕行线段水泥混凝土路面改造工程智慧工地建设管理平台</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../../css/hzBigScreen.css">
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+		<script type="text/javascript" src="../../js/plugin/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" href="http://47.103.77.233:8090/static/commonfiles/layui/css/layui.css">
+		<script type="text/javascript" src="http://47.103.77.233:8090/static/commonfiles/layui/layui.all.js"></script>
+		<script type="text/javascript" src="../../js/private/layout.js"></script>
+		<script type="text/javascript" src="../../js/plugin/swiper.min.js"></script>
+		<script type="text/javascript" src="../../js/private/utils.js"></script>
+		<script type="text/javascript" src="../../js/plugin/echarts.min.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=EMU0q1jOBYqmg8Tvl2RYws7hNw6PHyyR"></script>
+		<script type="text/javascript" src="../../js/private/GeoUtils.js"></script>
+		<script type="text/javascript" src="../../js/private/mapJson.js"></script>
+	</head>
+
+	<body>
+		<!-- 地图 -->
+		<div id="peo-map-tip" class="absolute"></div>
+		<iframe src="itemMap.html" width="100%" height="100%" class="absolute" frameborder="0"></iframe>
+		<!-- 人员考勤&农民工工资 -->
+		<div class="card-list1 card-listItem card-list absolute">
+			<div class="ryAttend_btn card-header absolute text-l">
+				<div class="on tabbtn">人员考勤</div>
+				<div class="tabbtn">农民工工资</div>
+			</div>
+			<div class="staticWarp-attend w100 h100 absolute">
+				<div class="swiper-wrapper w100 h100">
+					<!-- 人员考勤 -->
+					<div class="swiper-slide w100 h100 swiper-no-swiping">
+						<div class="legend_item">
+							<ul>
+								<li>
+									<b class="cqicon"></b>
+									<span>出勤</span>
+								</li>
+								<li>
+									<b class="wcqicon"></b>
+									<span>未出勤</span>
+								</li>
+								<li>
+									<b class="cqlicon"></b>
+									<span>出勤率</span>
+								</li>
+							</ul>
+						</div>
+						<div id="rykq-char" class="w100 h100 absolute echarts-warp"></div>
+						<div id="cql-char" class="w100 h100 absolute echarts-warp"></div>
+					</div>
+					<!-- 农民工工资 -->
+					<div class="swiper-slide w100 h100 swiper-no-swiping">
+						<ul class="wages_ul">
+							<li class="wages_li">
+								<img src="../../images/bxicon.png">
+								<span class="bx_status">保险状态</span>
+								<span class="bx_result">已参保</span>
+							</li>
+							<li class="wages_li">
+								<img src="../../images/yfgzicon.png">
+								<span class="bx_status">已发放工资</span>
+								<span class="bx_result nmgall"></span>
+							</li>
+							<li class="wages_li">
+								<img src="../../images/zffrcicon.png">
+								<span class="bx_status">总发放人次</span>
+								<span class="bx_result nmgNum"></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 人员档案 -->
+		<div class="card-list2 card-listItem card-list absolute">
+			<div class="card-header absolute text-l">人员档案</div>
+			<div class="ryda_top">
+				<b>福清S209绕行线段总参建人数<span id="allpeo"></span>人</b>
+				<div id="ryda-char" class="w100 h100 absolute echarts-warp"></div>
+			</div>
+			<div class="ryda_bot">
+				<ul>
+					<li>
+						<img src="../../images/glicon.png">
+						<div class="ryda_botRight">
+							<p class="fyad_name">管理人员</p>
+							<p class="fyad_num fy_glry"></p>
+						</div>
+					</li>
+					<li>
+						<img src="../../images/tzicon.png">
+						<div class="ryda_botRight">
+							<p class="fyad_name">特种作业人员</p>
+							<p class="fyad_num fy_tzzyry"></p>
+						</div>
+					</li>
+					<li>
+						<img src="../../images/aqicon.png">
+						<div class="ryda_botRight">
+							<p class="fyad_name">安全管理人员</p>
+							<p class="fyad_num fy_aqglry"></p>
+						</div>
+					</li>
+					<li>
+						<img src="../../images/jjicon.png">
+						<div class="ryda_botRight">
+							<p class="fyad_name">机架人员</p>
+							<p class="fyad_num fy_jjry"></p>
+						</div>
+					</li>
+					<li>
+						<img src="../../images/zyicon.png">
+						<div class="ryda_botRight">
+							<p class="fyad_name">作业人员</p>
+							<p class="fyad_num fy_zyry"></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 计划管理&文档管理 -->
+		<div class="card-list3 card-list absolute">
+			<div class="text-l cot-head-wth" id="jihua_wth">
+				<div class="on tabbtn">计划管理</div>
+				<div class="tabbtn">文档管理</div>
+			</div>
+			<div class="staticWarp-jhgl w100 h100 absolute">
+				<div class="swiper-wrapper w100 h100">
+					<div class="swiper-slide w100 h100 swiper-no-swiping">
+						<h5 class="silde_header_wth">计划管理</h5>
+						<div id="jhgl-char" class="w100 h100 absolute echarts-warp"></div>
+					</div>
+					<div class="swiper-slide w100 h100 swiper-no-swiping">
+						<h5 class="silde_header_wth">文档管理</h5>
+						<div class="w100 h100 absolute echarts-warp">
+							<div class="document_con">
+								<ul>
+									<li class="document_li">
+										<img src="../../images/jh_icon1.png">
+										<div class="document_text">
+											<p class="document_num1 document_num"></p>
+											<p class="document_det">水泥混凝土路面改造工程(份)</p>
+										</div>
+									</li>
+									<li class="document_li">
+										<img src="../../images/jh_icon2.png">
+										<div class="document_text">
+											<p class="document_num2 document_num"></p>
+											<p class="document_det">路灯及地下线管工程(份)</p>
+										</div>
+									</li>
+									<li class="document_li">
+										<img src="../../images/jh_icon3.png">
+										<div class="document_text">
+											<p class="document_num3 document_num"></p>
+											<p class="document_det">指挥部相关文件(份)</p>
+										</div>
+									</li>
+									<li class="document_li">
+										<img src="../../images/jh_icon4.png">
+										<div class="document_text">
+											<p class="document_num4 document_num"></p>
+											<p class="document_det">监理单位相关文件(份)</p>
+										</div>
+									</li>
+									<li class="document_li">
+										<img src="../../images/jh_icon5.png">
+										<div class="document_text">
+											<p class="document_num5 document_num"></p>
+											<p class="document_det">施工单位相关文件(份)</p>
+										</div>
+									</li>
+									<li class="document_li">
+										<img src="../../images/jh_icon6.png">
+										<div class="document_text">
+											<p class="document_num6 document_num"></p>
+											<p class="document_det">平台相关(份)</p>
+										</div>
+									</li>
+									<li class="document_li">
+										<img src="../../images/jh_icon7.png">
+										<div class="document_text">
+											<p class="document_num7 document_num"></p>
+											<p class="document_det">其他(份)</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 安全抓拍 -->
+		<div class="card-list4 card-listItem card-list absolute">
+			<div class="card-header absolute text-l">安全抓拍</div>
+			<div class="aqzp_num">安全抓拍处置率100%</div>
+			<div id="aqzp-char" class="w100 h100 absolute echarts-warp"></div>
+		</div>
+		<!-- 质量通报与整改&关键工序 -->
+		<div class="card-list5 card-list absolute">
+			<div class="text-l cot-head-wth" id="zlManage_btn">
+				<div class="on tabbtn">质量通报与整改</div>
+				<div class="tabbtn">关键工序</div>
+			</div>
+			<div class="staticWarp-zl w100 h100 absolute">
+				<div class="swiper-wrapper w100 h100">
+					<div class="swiper-slide w100 h100 swiper-no-swiping">
+						<h5 class="silde_header_wth">质量通报</h5>
+						<div class="zl_title">
+							<ul>
+								<li>开始数量:<span class="zlStart"></span></li>
+								<li>整改完成数量:<span class="zlReady"></span></li>
+							</ul>
+						</div>
+						<div id="tbzg-char" class="w100 h100 absolute echarts-warp"></div>
+					</div>
+					<div class="swiper-slide w100 h100 swiper-no-swiping">
+						<h5 class="silde_header_wth">关键工序</h5>
+						<div class="w100 h100 absolute echarts-warp">
+							<div class="zl_title">
+								<ul>
+									<li>开始数量:<span class="gxStart"></span></li>
+									<li>整改完成数量:<span class="gxAll"></span></li>
+								</ul>
+							</div>
+							<div id="gjgx-char" class="w100 h100 absolute echarts-warp"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+</html>
+<script type="text/javascript">
+	var nowDate = getNowFormatDate(),
+		dateArr = nowDate.nowObj;
+	console.log(nowDate);
+
+	setTimeout(function() {
+		swiperFun();
+		checkSwiper();
+		checkSwiper2();
+		checkSwiper3();
+		renyuankaoking();//人员考勤
+		nongmingong(); //农民工工资
+		bumengPeo(); //部门人员
+		leixingPeo(); //人员类型
+		jihuagualli(); //计划管理
+		wendangguanli(); //文档管理
+		anquanzhuapai();//安全抓拍
+		zhiliangtongbao();	//质量管理
+		guanjiangongxu();	//工序管理
+	}, 100);
+
+	$(".card-header div:last-child").on("click", function(event) {
+		$(this).addClass("on")
+		$(this).css("margin-top", "0");
+		$(this).siblings().removeClass("on");
+		$(this).siblings().css("margin-top", autoH(-10));
+		$(this).parent().parent().addClass("card-listAct");
+		$(this).parent().parent().removeClass("card-list");
+	});
+	$(".card-header div:first-child").on("click", function(event) {
+		$(this).css("margin-top", "0");
+		$(this).siblings().css("margin-top", autoH(-10));
+		$(this).parent().parent().removeClass("card-listAct")
+		$(this).parent().parent().addClass("card-list")
+	});
+
+	//查看合成级配-弹窗
+	function viewPop() {
+		parent.layer.open({
+			type: 1,
+			anim: 4,
+			title: false,
+			closeBtn: 0,
+			btnAlign: 'c',
+			shadeClose: false,
+			area: ['1200px', '600px'],
+			skin: 'view-hcjp-pop-warp',
+			content: $("#view-hcjp-pop-warp").html(),
+			btn1: function(index, layero) {
+				//按钮【确定】的回调
+
+			},
+			btn2: function(index, layero) {
+				//按钮【取消】的回调
+
+			},
+			success: function() {
+				//弹窗成功回调
+
+			}
+		});
+	}
+	//顶部轮播-swiper
+	function swiperFun() {
+		var mySwiper = new Swiper(".module-swiper-slide-top-swiper", {
+			//循环
+			loop: true,
+			initialSlide: 0,
+			//切换效果
+			direction: "vertical",
+			effect: 'left',
+			//自动轮播
+			autoplay: {
+				delay: sonSwiperTime,
+				stopOnLastSlide: false,
+				disableOnInteraction: true,
+			}
+		});
+	};
+	//人员考勤切换
+	function checkSwiper() {
+		var mySwiper = new Swiper(".staticWarp-attend", {
+			//循环
+			loop: false,
+			//切换效果
+			effect: 'left',
+			initialSlide: 0,
+			//自动轮播
+			autoplay: false
+		});
+		$(document).on("click", ".ryAttend_btn div", function(event) {
+			$(this).addClass("on").siblings().removeClass("on");
+			var index = $(this).index();
+			mySwiper.slideTo(index, 300, false);
+		});
+	};
+	//计划管理切换
+	function checkSwiper2() {
+		var mySwiper = new Swiper(".staticWarp-jhgl", {
+			//循环
+			loop: false,
+			//切换效果
+			effect: 'left',
+			initialSlide: 0,
+			//自动轮播
+			autoplay: false
+		});
+		$(document).on("click", "#jihua_wth div", function(event) {
+			$(this).addClass("on").siblings().removeClass("on");
+			var index = $(this).index();
+			mySwiper.slideTo(index, 300, false);
+		});
+	}
+	//质量管理
+	function checkSwiper3() {
+		var mySwiper = new Swiper(".staticWarp-zl", {
+			//循环
+			loop: false,
+			//切换效果
+			effect: 'left',
+			initialSlide: 0,
+			//自动轮播
+			autoplay: false
+		});
+		$(document).on("click", "#zlManage_btn div", function(event) {
+			$(this).addClass("on").siblings().removeClass("on");
+			var index = $(this).index();
+			mySwiper.slideTo(index, 300, false);
+		});
+	}
+
+	//	人员考勤接口
+	function renyuankaoking() {
+		var date = dateArr[0] + "-" + dateArr[1] + '-' + dateArr[2];
+		Get(commonUrl + 'zhgdattendance/show?date=' + date + '&ptUserId=44', {}, function(res) {
+//			console.log('人员考勤接口', res);
+			if(res.code == 0) {
+				var datas = res.data,
+					total = datas.total,
+					check = datas.check,
+					dept = datas.dept,
+					rate = datas.rate,
+					erPeo=[],checkArr=[],deptArr=[],rateArr=[];
+				for(var i = 0, len = total.length; i < len; i++) {
+					if(dept[i]=='FQ-SG标'||dept[i]=='FQ-JL标'){
+						erPeo.push(total[i] - check[i]);
+						checkArr.push(check[i]);
+						if(dept[i]=='FQ-SG标'){
+							deptArr.push('施工标');
+						}else if(dept[i]=='FQ-JL标'){
+							deptArr.push('监理标');
+						}
+						rateArr.push(rate[i]);
+					}
+				}
+				sybChar(checkArr, erPeo, deptArr);
+				cqlChar(deptArr, rateArr)
+			} else {
+				alert(res.msg);
+			}
+		});
+	}
+	//人员考勤-char
+	function sybChar(datas1, datas2, ydata) {
+		var charWarp = document.getElementById("rykq-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+			grid: {
+				left: '5%',
+				right: '10%',
+				bottom: '4%',
+				top: "28%",
+				containLabel: true
+			},
+			tooltip: {
+				show: true,
+				trigger: 'axis'
+			},
+			xAxis: [{
+				type: 'value',
+				axisLine: {
+					lineStyle: {
+						type: "dotted",
+						color: "#475c9e"
+					}
+				},
+				axisTick: {
+					show: false
+				},
+				axisLabel: {
+					color: "#fff"
+				},
+				splitLine: {
+					show: true,
+					lineStyle: {
+						color: "#475c9e",
+						type: "dotted"
+					}
+				}
+			}],
+			yAxis: [{
+				type: 'category',
+				data: ydata,
+				axisLine: {
+					lineStyle: {
+						type: "solid",
+						color: "#475c9e"
+					}
+				},
+				axisTick: {
+					show: false
+				},
+				axisLabel: {
+					color: "#fff",
+				},
+			}],
+			series: [{
+				name: '出勤',
+				type: 'bar',
+				barWidth: 20,
+				itemStyle: {
+					normal: {
+						barBorderRadius: 2,
+						color: new echarts.graphic.LinearGradient(
+							0, 0, 0, 1, [{
+									offset: 0,
+									color: '#13b0e5'
+								},
+								{
+									offset: 1,
+									color: '#0bdbe7'
+								}
+							]
+						)
+					}
+				},
+				data: datas1
+			}, {
+				name: '未出勤',
+				type: 'bar',
+				barWidth: 20,
+				itemStyle: {
+					normal: {
+						barBorderRadius: 2,
+						color: new echarts.graphic.LinearGradient(
+							0, 0, 0, 1, [{
+									offset: 0,
+									color: '#321bff'
+								},
+								{
+									offset: 1,
+									color: '#1c73ff'
+								}
+							]
+						)
+					}
+				},
+				data: datas2
+			}],
+		};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	//人员考勤-char2
+	function cqlChar(det, val) {
+		var charWarp = document.getElementById("cql-char");
+		var initChar = echarts.init(charWarp);
+		var titleArr = [],
+			seriesArr = [];
+		colors = ['#ffda47', '#25368e'];
+		det.forEach(function(item, index) {
+			titleArr.push({
+				text: val[index]+'%',
+				right: 5,
+				top: index * 30 +35+'%',
+				textAlign: 'center',
+				textStyle: {
+					fontWeight: 'normal',
+					fontSize: '16',
+					color: colors[0],
+					textAlign: 'center',
+				},
+			});
+			seriesArr.push({
+				name: item,
+				type: 'pie',
+				clockWise: false,
+				radius: [22, 25],
+				itemStyle: {
+					normal: {
+						color: colors[0],
+						shadowColor: colors[0],
+						shadowBlur: 0,
+						label: {
+							show: false
+						},
+						labelLine: {
+							show: false
+						},
+					}
+				},
+				hoverAnimation: false,
+				center: ['24%', index * 30 + 40 + '%'],
+				data: [{
+					value: val[index],
+					label: {
+						normal: {
+							formatter: function(params) {
+								return params.value+'%';
+							},
+							verticalAlign : 'top',
+							lineHeight: 20,
+							show: false,
+							textStyle: {
+								fontSize: '14',
+								fontWeight: 'bold',
+								color: colors[0]
+							}
+						}
+					},
+				}, {
+					value: 100 - val[index],
+					name: 'invisible',
+					itemStyle: {
+						normal: {
+							color: colors[1]
+						},
+						emphasis: {
+							color: colors[1]
+						}
+					}
+				}]
+			})
+		});
+		var options = {
+			title: titleArr,
+			series: seriesArr
+		};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	
+	//农民工工资
+	function nongmingong(){
+		Get(commonUrl + 'zhgdwageflow/wageFlowAmountAndNum', {}, function(res) {
+//			console.log('农民工工资', res);
+			if(res.code == 0) {
+				var datas = res.data;
+				$('.nmgall').html(datas.amount+'万元');
+				$('.nmgNum').html(datas.num+'人');
+			} else {
+				alert(res.msg);
+			}
+		});
+	}
+	
+	
+	//人员档案接口
+	function bumengPeo(){
+		Get(commonUrl + 'zhgduser/getcountbydept', {}, function(res) {
+//			console.log('人员档案接口', res);
+			if(res.code == 0) {
+				var datas = res.data, allPeo = 0;
+				for(var i=0,len=datas.length;i<len;i++){
+					allPeo+=datas[i].countuser;
+				}
+				$('#allpeo').html(allPeo);
+				rydaChar(datas);
+			} else {
+				alert(res.msg);
+			}
+		});
+	}
+	//人员档案
+	function rydaChar(datas) {
+		var charWarp = document.getElementById("ryda-char");
+		var initChar = echarts.init(charWarp);
+		var titleArr = [],
+			seriesArr = [];
+		colors = ['#fdde45', '#2e3880'];
+		datas.forEach(function(item, index) {
+			titleArr.push({
+				text: item.zhgdDeptName,
+				subtext: item.countuser+'人',
+				left: index * 30 + 18 + '%',
+				top: '60%',
+				textAlign: 'center',
+				textStyle: {
+					fontWeight: 'normal',
+					fontSize: '14',
+					color: "#6795ea",
+					textAlign: 'center',
+					lineHeight: '10',
+					verticalAlign: 'top',
+				},
+				subtextStyle: {
+					textAlign: 'center',
+					fontSize: '16',
+					color: '#fbe446',
+					fontWeight: 'bold',
+					verticalAlign: 'top',
+					lineHeight: '5'
+				}
+			});
+			seriesArr.push({
+				name: item.zhgdDeptName,
+				type: 'pie',
+				clockWise: false,
+				radius: ['20%', '30%'],
+				itemStyle: {
+					normal: {
+						color: colors[0],
+						shadowColor: colors[0],
+						shadowBlur: 0,
+						label: {
+							show: false
+						},
+						labelLine: {
+							show: false
+						},
+					}
+				},
+				hoverAnimation: false,
+				center: [index * 30 + 20 + '%', '40%'],
+				data: [{
+					value: item.countuser,
+					label: {
+						normal: {
+							formatter: function(params) {
+								return params.value + '人';
+							},
+							position: 'center',
+							show: false,
+							textStyle: {
+								fontSize: '12',
+								color: colors[0]
+							}
+						}
+					},
+				}, {
+					value: 100 - item.value,
+					name: 'invisible',
+					itemStyle: {
+						normal: {
+							color: colors[1]
+						},
+						emphasis: {
+							color: colors[1]
+						}
+					}
+				}]
+			})
+		});
+		var options = {
+			title: titleArr,
+			series: seriesArr
+		};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	
+	//人类类型
+	function leixingPeo(){
+		var date = dateArr[0] + "-" + dateArr[1] + '-' + dateArr[2];
+		Get(commonUrl + 'zhgduser/gettypenomber', {}, function(res) {
+//			console.log('人类类型', res);
+			if(res.code == 0) {
+				var datas = res.data;
+				for(var i=0,len=datas.length;i<len;i++){
+					var item = datas[i];
+					switch(item.dusertype){
+						case '安全管理人员':
+							$('.fy_aqglry').html(item.typecount+'人');
+							break;
+						case '管理人员':
+							$('.fy_glry').html(item.typecount+'人');
+							break;
+						case '监理人员':
+							$('.fy_tzzyry').html(item.typecount+'人');
+							break;
+						case '施工人员':
+							$('.fy_jjry').html(item.typecount+'人');
+							break;
+						case '作业人员':
+							$('.fy_zyry').html(item.typecount+'人');
+							break;
+					}
+				}
+			} else {
+				alert(res.msg);
+			}
+		});
+	}
+	
+	
+	//计划管理接口
+	function jihuagualli(){
+		var jsondata = {
+			contractId: 7,
+			startDate: '2019-01-01',
+			endDate: dateArr[0] + "-" + dateArr[1] + '-' + dateArr[2]
+		}
+		wthPost(commonUrl + 'plan/queryplanprogresstable', jsondata, function(res) {
+//			console.log('计划管理接口', res);
+			if(res.code == 200) {
+				var datas = res.imageInfo.contrastInfoList, yData1=[], yData2=[],xData=[];
+				for(var i=0,len=datas.length;i<len;i++){
+					yData1.push(datas[i].planAmount);
+					yData2.push(datas[i].progressAmount);
+					xData.push(datas[i].date);
+				}
+				jhglChar(yData1, yData2, xData);
+			} else {
+				alert(res.msg);
+			}
+		});
+	}
+	//计划管理
+	function jhglChar(yData1, yData2, xData) {
+		var charWarp = document.getElementById("jhgl-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+			grid: {
+				left: '5%',
+				right: '10%',
+				bottom: '4%',
+				top: "30%",
+				containLabel: true
+			},
+			tooltip: {
+				show: true,
+				trigger: 'axis'
+			},
+			color: ['#ffe04a', '#1c73ff'],
+			legend: {
+				right: 'center',
+				top: '15%',
+				textStyle: {
+					color: '#fff',
+				},
+				textStyle: {
+					color: "#a7c8fc"
+				},
+				itemGap: 10,
+				icon: 'rect',
+				itemWidth: 15,
+				itemHeight: 15,
+				data: ['计划完成', '实际完成']
+			},
+			xAxis: xAxisConfig(xData, "", 0),
+			yAxis: [{
+				type: 'value',
+				min: 0,
+//				max: 20,
+				axisLabel: {
+					show: true,
+					formatter: '{value} t',
+					color: '#999',
+					fontSize: 12
+				},
+				axisLine: {
+					lineStyle: {
+						type: "dotted",
+						color: "#475c9e"
+					}
+				},
+				axisTick: {
+					show: false
+				},
+				axisLabel: {
+					color: "#fff",
+				},
+				splitLine: {
+					show: true,
+					lineStyle: {
+						color: "#475c9e",
+						type: "dotted"
+					}
+				}
+			}],
+			series: [{
+					name: '计划完成',
+					type: 'line',
+					symbol: "circle",
+					showAllSymbol: true,
+					symbolSize: 8,
+					areaStyle: {
+						normal: {
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+									offset: 0,
+									color: '#fceb46'
+								},
+								{
+									offset: 1,
+									color: '#3fbbff0d'
+								}
+							], false),
+						}
+					},
+					data: yData1
+				},
+				{
+					name: '实际完成',
+					type: 'line',
+					showAllSymbol: true,
+					symbolSize: 8,
+					areaStyle: {
+						normal: {
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+									offset: 0,
+									color: '#1a76ff'
+								},
+								{
+									offset: 1,
+									color: '#3fbbff0d'
+								}
+							], false),
+						}
+					},
+					data: yData2
+				}
+			],
+		};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+
+	
+	//文档管理接口
+	function wendangguanli(){
+		wthPost(commonUrl + 'zhgdindustryfile/fileCount', {}, function(res) {
+			console.log('文档管理接口', res);
+			if(res.code == 0) {
+				var datas = res.data;
+				for(var i=0,len=datas.length;i<len;i++){
+					switch(datas[i].file){
+//						case '操作规程':
+//							$('.');
+//							break;
+//						case '管理制度':
+//							$('.').html(datas[i].num);
+//							break;
+						case '监理单位相关文件':
+							$('.document_num4').html(datas[i].num);
+							break;
+						case '路灯及地下管线工程':
+							$('.document_num2').html(datas[i].num);
+							break;
+						case '平台相关':
+							$('.document_num6').html(datas[i].num);
+							break;
+						case '其他':
+							$('.document_num7').html(datas[i].num);
+							break;
+						case '施工单位相关文件':
+							$('.document_num5').html(datas[i].num);
+							break;
+						case '水泥混凝土路面改造工程':
+							$('.document_num1').html(datas[i].num);
+							break;
+						case '指挥部相关文件':
+							$('.document_num3').html(datas[i].num);
+							break;
+					}
+				}
+			} else {
+				alert(res.msg);
+			}
+		});
+	}
+	
+	
+	//安全抓拍接口
+	function anquanzhuapai(){
+		var jsondata = {}
+		Get(commonUrl + 'zhgdsnap/snapDoneCount', jsondata, function(res) {
+//			console.log('安全抓拍接口', res);
+			if(res.code == 0) {
+				var datas = res.data;
+				$('.aqzp_num').html('安全抓拍处置率'+(datas.percent)*100+"%");
+				aqzpChar(datas);
+			} else {
+				alert(res.msg);
+			}
+		});
+	}
+	//安全抓拍-char
+	function aqzpChar(datas) {
+		var charWarp = document.getElementById("aqzp-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+			grid: {
+				left: '5%',
+				right: '13%',
+				bottom: '4%',
+				top: "35%",
+				containLabel: true
+			},
+			color: ['#1c73ff', '#8e1fe7'],
+			tooltip: {
+				show: true,
+				trigger: 'axis'
+			},
+			legend: {
+				right: 'center',
+				top: '20%',
+				textStyle: {
+					color: '#fff',
+				},
+				textStyle: {
+					color: "#a7c8fc"
+				},
+				itemGap: 10,
+				icon: 'rect',
+				itemWidth: 15,
+				itemHeight: 15,
+				data: ['抓拍次数', '处理次数']
+			},
+			xAxis: xAxisConfig(['安全帽'], "", 0),
+			yAxis: yAxisConfig("单位(次)"),
+			series: [{
+				name: '抓拍次数',
+				type: 'bar',
+				barWidth: 20,
+				symbol: "circle",
+				showAllSymbol: true,
+				symbolSize: 8,
+				data: [datas.num]
+			}, {
+				name: '处理次数',
+				type: 'bar',
+				barWidth: 20,
+				symbol: "circle",
+				showAllSymbol: true,
+				symbolSize: 8,
+				data: [datas.done]
+			}]
+		};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	
+	
+	//质量通报与整改接口
+	function zhiliangtongbao(){
+		var jsondata = {}
+		wthPost(commonUrl + 'zhgdpatrol/getpatrolpercent', jsondata, function(res) {
+//			console.log('质量通报与整改接口', res);
+			if(res.code == 0) {
+				var datas = res.data;
+				$('.zlStart').html(datas.num+'个');
+				$('.zlReady').html(datas.todoNum+'个');
+				tbzgChar('', [(datas.percent*100)]);
+			} else {
+				alert(res.msg);
+			}
+		});
+	}
+	//质量通报与整改
+	function tbzgChar(name, val) {
+		var charWarp = document.getElementById("tbzg-char");
+		var initChar = echarts.init(charWarp);
+		var titleArr = [],
+			seriesArr = [];
+		colors = [
+			['#ff8b98', '#25368e']
+		];
+		val.forEach(function(item, index) {
+			titleArr.push({
+				text: '完成率' + '\n' + item + '%',
+				left: '48%',
+				top: '54%',
+				textAlign: 'center',
+				textStyle: {
+					fontSize: '17',
+					fontWeight: 'bold',
+					color: '#3dfac0',
+					lineHeight: '20'
+				},
+			});
+			seriesArr.push({
+				name: name,
+				type: 'pie',
+				clockWise: false,
+				radius: ['50%', '40%'],
+				itemStyle: {
+					normal: {
+						color: { // 完成的圆环的颜色
+							colorStops: [{
+								offset: 0,
+								color: '#84cff9' // 0% 处的颜色
+							}, {
+								offset: 1,
+								color: '#da97fe' // 100% 处的颜色
+							}]
+						},
+						shadowColor: colors[index][0],
+						shadowBlur: 0,
+						label: {
+							show: false
+						},
+						labelLine: {
+							show: false
+						},
+					}
+				},
+				hoverAnimation: false,
+				center: ['50%', '60%'],
+				data: [{
+					value: item
+				}, {
+					value: 100 - item,
+					name: 'invisible',
+					itemStyle: {
+						normal: {
+							color: colors[index][1]
+						},
+						emphasis: {
+							color: colors[index][1]
+						}
+					}
+				}]
+			})
+		});
+		var options = {
+			title: titleArr,
+			series: seriesArr
+		};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	
+	//关键工序接口
+	function guanjiangongxu(){
+		var jsondata = {}
+		wthPost(commonUrl + 'zhgdqcpatrol/getpatrolpercent', jsondata, function(res) {
+			console.log('关键工序接口', res);
+			if(res.code == 0) {
+				var datas = res.data;
+				$('.gxStart').html(datas.num+'个');
+				$('.gxAll').html(datas.todoNum+'个');
+				gjgxChar('', [(datas.percent*100)]);
+			} else {
+				alert(res.msg);
+			}
+		});
+	}
+	//关键工序
+	function gjgxChar(name, val) {
+		var charWarp = document.getElementById("gjgx-char");
+		var initChar = echarts.init(charWarp);
+		var titleArr = [],
+			seriesArr = [];
+		colors = [
+			['#ff8b98', '#25368e']
+		];
+		val.forEach(function(item, index) {
+			titleArr.push({
+				text: name,
+				// left: index * 20 + 10 +'%',
+				top: '65%',
+				textAlign: 'center',
+				textStyle: {
+					fontWeight: 'normal',
+					fontSize: '16',
+					color: colors[index][0],
+					textAlign: 'center',
+				},
+			});
+			seriesArr.push({
+				name: name,
+				type: 'pie',
+				clockWise: false,
+				radius: ['50%', '40%'],
+				itemStyle: {
+					normal: {
+						color: { // 完成的圆环的颜色
+							colorStops: [{
+								offset: 0,
+								color: '#84cff9' // 0% 处的颜色
+							}, {
+								offset: 1,
+								color: '#da97fe' // 100% 处的颜色
+							}]
+						},
+						shadowColor: colors[index][0],
+						shadowBlur: 0,
+						label: {
+							show: false
+						},
+						labelLine: {
+							show: false
+						},
+					}
+				},
+				hoverAnimation: false,
+				center: ['50%', '60%'],
+				data: [{
+					value: item,
+					label: {
+						normal: {
+							formatter: function(params) {
+								return '完成率' + '\n' + params.value + '%';
+							},
+							position: 'center',
+							show: true,
+							textStyle: {
+								fontSize: '17',
+								fontWeight: 'bold',
+								color: '#3dfac0',
+								lineHeight: '20'
+							}
+						}
+					},
+				}, {
+					value: 100 - item,
+					name: 'invisible',
+					itemStyle: {
+						normal: {
+							color: colors[index][1]
+						},
+						emphasis: {
+							color: colors[index][1]
+						}
+					}
+				}]
+			})
+		});
+		var options = {
+			title: titleArr,
+			series: seriesArr
+		};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+</script>

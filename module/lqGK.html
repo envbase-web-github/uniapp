@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>福清S209绕行线段水泥混凝土路面改造工程智慧工地建设管理平台</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../../css/hzBigScreen.css">
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+		<script type="text/javascript" src="../../js/plugin/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="../../js/private/layout.js"></script>
+		<script type="text/javascript" src="../../js/plugin/swiper.min.js"></script>
+		<script type="text/javascript" src="../../js/private/utils.js"></script>
+		<script type="text/javascript" src="../../js/plugin/echarts.min.js"></script>
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		<div class="iframe-page-warp w100 h100 relative bhManage-module-page lqManage-module-page">
+			<div class="iframe-page-warp-content_lq absolute">
+				<div class="lq_tabcontent">
+					<div class="lq_check-list-show-btn absolute">
+					   <div class="on" data-id="lqGk_1" data-src="lqGK_bhgk.html">拌和管控</div>
+					   <div data-id="lqGk_2" data-src="lqGK_ysgk.html">运输管控</div>
+					   <div data-id="lqGk_3" data-src="lqGK_tpgk.html">摊铺管控</div>
+					   <div data-id="lqGk_4" data-src="lqGK_nygk.html">碾压管控</div>
+					   <div data-id="lqGk_5" data-src="lqGK_lqsc.html">沥青生产</div>
+					</div>
+				</div>
+				<div class="swiper-container lq_swiper_content" id="page-warp-swiper">
+					<div class="swiper-wrapper w100 h100">
+						<div class="swiper-slide w100 h100 swiper-no-swiping relative">
+							<iframe src="lqGK_bhgk.html" width="100%" height="100%"  frameborder="no" allowtransparency="true"></iframe>
+						</div>
+						<div class="swiper-slide w100 h100 swiper-no-swiping relative">
+							<iframe src="lqGK_ysgk.html" width="100%" height="100%"  frameborder="no" allowtransparency="true"></iframe>
+						</div>
+						<div class="swiper-slide w100 h100 swiper-no-swiping relative">
+							<iframe src="lqGK_tpgk.html" width="100%" height="100%"  frameborder="no" allowtransparency="true"></iframe>
+						</div>
+						<div class="swiper-slide w100 h100 swiper-no-swiping relative">
+							<iframe src="lqGK_nygk.html" width="100%" height="100%"  frameborder="no" allowtransparency="true"></iframe>
+						</div>
+						<div class="swiper-slide w100 h100 swiper-no-swiping relative">
+							<iframe src="lqGK_lqsc.html" width="100%" height="100%"  frameborder="no" allowtransparency="true"></iframe>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	setTimeout(function(){
+		lqitemSwiperFun();
+		swiperFun();
+		checkSwiper();
+		sybChar();
+		gjskChar();
+	},100);
+	
+	//pc-swiper
+	function lqitemSwiperFun(){
+		//pc
+		var lqitemSwiper = new Swiper(".lq_swiper_content",{
+			//循环
+			loop:false,
+			//切换效果
+			effect:'left',
+			//自动轮播
+			// autoplay:false
+			//自动轮播
+			autoplay:false,
+			on:{
+				transitionEnd: function(){
+				   show(lqitemSwiper,this.activeIndex)
+				},
+			}
+		});
+		$(document).on("click",".lq_check-list-show-btn div",function(event){
+			$(this).addClass("on").siblings().removeClass("on");
+			var index = $(this).index();
+			lqitemSwiper.slideTo(index,300,false);
+			// show.slideTo(index,300,false);
+			show(lqitemSwiper,index);
+		});
+		function show(swiperObj,index){
+			// $(".lq_check-list-show-btn div").eq(index).addClass("on").siblings().removeClass("on");
+			if($("#page-warp-swiper .swiper-slide").eq(index).find("iframe").attr("src")=="" || !$("#page-warp-swiper .swiper-slide").eq(index).find("iframe").attr("src")){
+				$("#page-warp-swiper .swiper-slide").eq(index).find("iframe").attr("src",$(".page-warp-tabs-warp .on").data("src"));
+			}
+			swiperObj.slideTo(index,300,false);
+		}
+	};
+
+	//顶部轮播-swiper
+	function swiperFun(){
+		var mySwiper = new Swiper(".module-swiper-slide-top-swiper",{
+			//循环
+			loop:true,
+			//切换效果
+			direction:"vertical",
+			effect:'left',
+			//自动轮播
+			autoplay: {
+				delay:sonSwiperTime,
+				stopOnLastSlide: false,
+				disableOnInteraction: true,
+			}
+		});
+	};
+	
+	//统计列表切换
+	function checkSwiper(){
+		var mySwiper = new Swiper(".static-list-warp-swiper",{
+			//循环
+			loop:false,
+			direction:"vertical",
+			//切换效果
+			effect:'left',
+			initialSlide:0,
+			//自动轮播
+			autoplay:false
+		});
+		$(document).on("click",".check-list-show-btn div",function(event){
+			$(this).addClass("on").siblings().removeClass("on");
+			var index = $(this).index();
+			mySwiper.slideTo(index,300,false);
+		});
+	}
+
+	//改性沥青温度走势图-char
+	function sybChar(){
+		var charWarp = document.getElementById("syb-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+				grid: {
+					left: '3%',
+					right: '8%',
+					bottom: '4%',
+					top:"28%",
+					containLabel: true
+				},
+				tooltip: {
+				  show: true,
+				  trigger: 'axis'
+				},
+				legend:{
+					right: 'center',
+					top: '15%',
+					textStyle: {
+						color: '#fff',
+					},
+					textStyle:{
+						color:"#a7c8fc"
+					},
+					itemGap:10,
+					icon: 'rect',
+					itemWidth:15,
+					itemHeight:15,
+					data: ['温度']
+				},
+				// xAxis:xAxisConfig(['08:44:38','08:44:39','08:44:40','08:44:41','08:44:42'],"",0),
+				xAxis:xAxisConfig(['09:17','09:18','09:19','09:20','09:21'],"",0),
+				yAxis:yAxisConfig("单位(℃)"),
+				series: [
+					{
+						name:'温度',
+						type:'line',
+						symbol:"circle",
+						showAllSymbol:true,
+						symbolSize:8,
+						itemStyle: {
+							borderColor: "#fff",
+							borderWidth:2,
+							color:"#68f265"
+						},
+						lineStyle:{
+							width:2
+						},
+						markLine : {
+							silent: true,
+							symbol:["none","arrow"],
+							label:{
+								normal:{
+									position:'end',
+									formatter:function(params){
+										return params.name+params.value
+									}
+								}
+							},
+							data: [
+								{
+									yAxis: 20,
+									name:"最大值",
+									lineStyle:{
+										normal:{
+											color:"#ef503b"
+										}
+									}
+								}, {
+									yAxis:3,
+									name:"最小值",
+									lineStyle:{
+										normal:{
+											color:"#ffef90"
+										}
+									}
+								}
+							]
+						},
+						// data:[100,70, 100, 200,60]
+						data:[15,16, 17, 16,15]
+					}
+				],
+				visualMap:{
+					show:false,
+					pieces:[
+						//超过上限
+						{gt:20,color:"#ef503b"},
+						//低于下限
+						{lt:3,color:"#ef503b"},
+						//正常
+						{gt:0, lt:20,color:"#68f265"}, 
+					]
+				}
+			};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+	//生产统计-char
+	function gjskChar(){
+		var charWarp = document.getElementById("gjsk-char");
+		var initChar = echarts.init(charWarp);
+		var options = {
+				grid: {
+					left: '3%',
+					right: '4%',
+					bottom: '4%',
+					top:"27%",
+					containLabel: true
+				},
+				tooltip: {
+				  show: true,
+				  trigger: 'axis'
+				},
+				legend:{
+					right: 'center',
+					top: '14%',
+					textStyle: {
+						color: '#fff',
+					},
+					textStyle:{
+						color:"#a7c8fc"
+					},
+					itemGap:10,
+					icon: 'rect',
+					itemWidth:15,
+					itemHeight:15,
+					data: ['生产量']
+				},
+				xAxis:xAxisConfig(['4月','5月','6月','7月','8月'],"",0),
+				yAxis:yAxisConfig("单位(kg)"),
+				series: [
+					{
+						name:'生产量',
+						type:'bar',
+						barWidth:"15%",
+						itemStyle: {
+							color:"#56eefa"
+						},
+						lineStyle:{
+							width:2
+						},
+						// data:[100,70, 100, 200,60]
+						data:[3800,4200, 3200, 3800,2200]
+					}
+				]
+			};
+		initChar.setOption(options);
+		$(window).resize(function() {
+			initChar.resize();
+		});
+	};
+	
+</script>

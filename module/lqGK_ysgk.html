@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>G25长深高速德清至富阳段扩容杭州段及G25富阳至G60诸暨高速联络线工程沥青路面施工质量管控系统</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" href="../../css/hzBigScreen.css">
+		<link rel="stylesheet" href="../../css/swiper.min.css">
+		<script type="text/javascript" src="../../js/plugin/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="../../js/private/layout.js"></script>
+		<script type="text/javascript" src="../../js/plugin/swiper.min.js"></script>
+		<script type="text/javascript" src="../../js/private/utils.js"></script>
+		<script type="text/javascript" src="../../js/plugin/echarts.min.js"></script>
+		<script type="text/javascript" src="../../js/plugin/ezuikit.js"></script>
+		<link rel="stylesheet" href="http://47.103.77.233:8090/static/commonfiles/layui/css/layui.css">
+		<script type="text/javascript" src="http://47.103.77.233:8090/static/commonfiles/layui/layui.all.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=EMU0q1jOBYqmg8Tvl2RYws7hNw6PHyyR"></script>
+		<script type="text/javascript" src="../../js/plugin/mapJson.js"></script>
+		<script type="text/javascript" src="../../js/plugin/GeoUtils.js"></script>
+	</head>
+	<body>
+		<div class="iframe-page-warp w100 h100 relative bhManage-module-page tpManage-module-page syManage-module-page transportManage-module-page">
+			<div class="iframe-page-warp-content-lqgk absolute">
+				<div class="staticWarp-to-listWarp w100 h100 absolute">
+					<div class="card-warp-small-lqsc-ysgk card-warp-small absolute w100">
+						<div class="card-header absolute text-l">运输管控</div>
+						<div class="transport-map-menu absolute">
+							<div class="transport-map-menu-content h100">
+								<div class="transport-title">摊铺中</div>
+								<div class="transport-map-menu-list">
+									<div class="transport-map-menu-list-content h100">
+										<i>苏11111</i>
+										<i class="ok">摊铺中</i>
+										<i>查看详情</i>
+									</div>
+								</div>
+								<div class="transport-title">运输中</div>
+								<div class="transport-map-menu-list">
+									<div class="transport-map-menu-list-content h100">
+										<i>苏A03GS3</i>
+										<i class="going">运输中</i>
+										<i>查看详情</i>
+									</div>
+								</div>
+								<div class="transport-map-menu-list">
+									<div class="transport-map-menu-list-content h100">
+										<i>苏A03GS3</i>
+										<i class="going">运输中</i>
+										<i>查看详情</i>
+									</div>
+								</div>
+								<div class="transport-map-menu-list">
+									<div class="transport-map-menu-list-content h100">
+										<i>苏A03GS3</i>
+										<i class="going">运输中</i>
+										<i>查看详情</i>
+									</div>
+								</div>
+								<div class="transport-title">接料中</div>
+								<div class="transport-map-menu-list">
+									<div class="transport-map-menu-list-content h100">
+										<i>苏A03GS3</i>
+										<i class="useing">接料中</i>
+										<i>查看详情</i>
+									</div>
+								</div>
+								<div class="transport-title">空闲</div>
+								<div class="transport-map-menu-list"></div>
+								<div class="transport-map-menu-list"></div>
+								<div class="transport-map-menu-list"></div>
+								<div class="transport-map-menu-list"></div>
+								<div class="transport-map-menu-list"></div>
+								<div class="transport-map-menu-list"></div>
+								<div class="transport-map-menu-list">10</div>
+							</div>
+						</div>
+						<div class="transport-map-warp-ysgk transport-map-warp absolute" style="height: 100%" id="transport-map-warp-ysgk"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 运输车轨迹 -->
+		<div class="car-line-warp">
+			<div id="car-line-map" class="w100 h100"></div>
+			<div class="car-line-warp-btn absolute"></div>
+		</div>
+		
+	</body>
+</html>
+<script type="text/javascript">
+	//120.133345,29.891723  拌合站坐标
+	setTimeout(function(){
+		//初始化百度地图
+		var map = new BMap.Map("transport-map-warp-ysgk");
+		map.centerAndZoom(new BMap.Point(120.365837,29.511015),14);
+		map.enableScrollWheelZoom();
+
+		//设置地图主题
+		map.setMapStyle({
+			styleJson: mapJson
+		});
+		//绘制施工区域
+		drawWorkArea(map);
+		
+		//标出运输车位置
+		drawMarker(map,new BMap.Point(120.346289,29.52761),'苏A03GS3');
+		drawMarker(map,new BMap.Point(120.382509,29.476309),'苏H132S3');
+		var polylineArr=[
+			new BMap.Point(120.346289,29.52761),
+			new BMap.Point(120.382509,29.476309)
+		];
+		drawRoad(map,polylineArr);
+		var polygon = new BMap.Polygon([
+			new BMap.Point(120.3514,29.526604),
+			new BMap.Point(120.360518,29.539834),
+			new BMap.Point(120.372232,29.538389),
+			new BMap.Point(120.36713,29.531601),
+			new BMap.Point(120.3514,29.526604),
+		], {strokeColor:"#ff2e4a", strokeWeight:2,fillColor:"#932e7a", strokeOpacity:0.5});  //创建多边形
+		map.addOverlay(polygon);   //增加多边形	
+
+	},100);
+	
+	
+	//关闭碳层
+	$(".car-line-warp-btn").click(function(){
+		$(".car-line-warp").hide();
+	});
+	
+	//圆形	
+	function drawWorkArea(map){
+		var circle = new BMap.Circle(new BMap.Point(120.382509,29.476309),800,{strokeColor:"#ead462", strokeWeight:2, strokeOpacity:1,fillColor:"#ead462",fillOpacity:"0.6"});
+		circle.disableMassClear();
+		map.addOverlay(circle);
+	}
+	
+	//绘制marker
+	function drawMarker(map,point,label){
+		var myIcon = new BMap.Icon("../../images/mapIcon.png",new BMap.Size(55,34));
+		var marker = new BMap.Marker(point,{icon:myIcon});
+		var label = new BMap.Label(label,{offset:new BMap.Size(30,-25)});
+		label.setStyle({
+			padding:"2px 5px",
+			fontFamily:"微软雅黑"
+		 });
+		marker.disableMassClear();
+		map.addOverlay(marker);
+		marker.setLabel(label);
+	    marker.addEventListener("click", function(){
+		   drawInfo(map,this.LA);
+	    });
+	}
+	
+	//绘制线路 参数为数组
+	function drawRoad(map,polylineArr){
+		var polyline = new BMap.Polyline(polylineArr, {strokeColor:"#fbb442", strokeWeight:5, strokeOpacity:1});   //创建折线
+		map.addOverlay(polyline);   //增加折线
+	};
+
+	//绘制不规则图形 参数为数组
+	function drawShape(map,polygonArr){
+		var polygon = new BMap.Polygon(polygonArr, {strokeColor:"#932e7a", strokeWeight:2, strokeOpacity:0.5});  //创建多边形
+		map.addOverlay(polygon);   //增加多边形
+	}
+	
+	//绘制信息窗口
+	function drawInfo(map,point){
+		// var label = new BMap.Label(
+		var box = "<div class='map-info-warp'>"+
+				"<div class='map-info-warp-content'>"+
+					"<div class='map-info-warp-content-header'>运输车详情 <button onclick='viewLine()'>运输轨迹</button></div>"+
+					"<div class='map-info-warp-content-list'>"+
+						"<div class='map-info-label'>车牌号：</div>"+
+						"<div class='map-info-label-content'>AJ2561</div>"+
+					"</div>"+
+					"<div class='map-info-warp-content-list'>"+
+						"<div class='map-info-label'>当前车速：</div>"+
+						"<div class='map-info-label-content'>42km/h</div>"+
+					"</div>"+
+					"<div class='map-info-warp-content-list'>"+
+						"<div class='map-info-label'>司机：</div>"+
+						"<div class='map-info-label-content'>张超</div>"+
+					"</div>"+
+					"<div class='map-info-warp-content-list'>"+
+						"<div class='map-info-label'>联系方式：</div>"+
+						"<div class='map-info-label-content'>13770925429</div>"+
+					"</div>"+
+					"<div class='map-info-warp-content-list'>"+
+						"<div class='map-info-label'>接料开始时间：</div>"+
+						"<div class='map-info-label-content'>2019-08-02 10:30:30</div>"+
+					"</div>"+
+					"<div class='map-info-warp-content-list'>"+
+						"<div class='map-info-label'>接料结束时间：</div>"+
+						"<div class='map-info-label-content'>2019-08-02 10:30:30</div>"+
+					"</div>"+
+					"<div class='map-info-warp-content-list'>"+
+						"<div class='map-info-label'>摊铺开始时间：</div>"+
+						"<div class='map-info-label-content'>2019-08-02 10:30:30</div>"+
+					"</div>"+
+					"<div class='map-info-warp-content-list'>"+
+						"<div class='map-info-label'>摊铺起始坐标：</div>"+
+						"<div class='map-info-label-content'>"+
+							"<p>120.3825092123131231</p>"+
+							"<p>120.3825092123139911</p>"+
+						"</div>"+
+					"</div>"+
+				"</div>"+
+			"</div>";
+			
+			var infoWindow = new BMap.InfoWindow(box,{});  // 创建信息窗口对象 
+			map.openInfoWindow(infoWindow,point);
+	}
+	
+	//查看运输轨迹
+	function viewLine(){
+		parent.layer.open({
+			type:2,
+			anim:4,
+			title:false,
+			closeBtn: 0,
+			shadeClose: true,
+			area: ['1200px','600px'],
+			btn: [''],
+			skin: 'view-hcjp-pop-warp',
+			content:"./module/transporGKMap.html",
+			btn1: function(index, layero){
+				//按钮【确定】的回调
+				parent.layer.closeAll('iframe')
+			},
+			success:function(){
+				//弹窗成功回调
+				$(".view-hcjp-pop-warp .layui-layer-btn a.layui-layer-btn0").text("131231312312312312313")
+			}
+		});
+	}
+</script>
